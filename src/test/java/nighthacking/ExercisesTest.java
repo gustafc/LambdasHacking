@@ -1,18 +1,17 @@
-package exercises.answers;
+package nighthacking;
 
 /*
  * HOL3970 - Lambda Programming Lab
  * JavaOne San Francisco 2013
  *
  * For each exercise, develop a solution using Java SE 8 Lambda/Streams
- * and remove the @Ignore tag. Then run the tests using Alt-F6.
+ * and remove the @Ignore tag.
  */
 
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +24,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class ExercisesOrig {
+public class ExercisesTest {
 
 // Exercise 1: Print out all the words in wordList, which is
 // a static List<String> defined at the bottom of this file.
@@ -33,17 +32,16 @@ public class ExercisesOrig {
     @Test @Ignore
     public void printAllWords() {
         /* TODO */
-
         // no assertions
     }
-    
+
 // Exercise 2: Convert all words in wordList to upper case,
 // and gather the result into an output list.
-    
+
     @Test @Ignore
     public void upperCaseWords() {
         List<String> output = null; /* TODO */
-        
+
         assertEquals(
             Arrays.asList(
                 "EVERY", "PROBLEM", "IN", "COMPUTER", "SCIENCE",
@@ -54,17 +52,17 @@ public class ExercisesOrig {
 
 // Exercise 3: Find all the words in wordList that have even length
 // and put them into an output list.
-    
+
     @Test @Ignore
     public void findEvenLengthWords() {
         List<String> output = null; /* TODO */
-        
+
         assertEquals(
             Arrays.asList(
                 "in", "computer", "be", "solved", "by", "adding", "of"),
                 output);
     }
-    
+
 // Exercise 4: Count the number of lines in a file. The field *reader*
 // is a BufferedReader which will be opened for you on the text file.
 // See the JUnit @Before and @After methods at the bottom of this file.
@@ -74,16 +72,16 @@ public class ExercisesOrig {
     @Test @Ignore
     public void countLinesInFile() throws IOException {
         long count = 0L; /* TODO */
-        
+
         assertEquals(14, count);
     }
-    
+
 // Exercise 5: Join lines 3-4 from the text file into a single string.
-    
+
     @Test @Ignore
     public void joinLineRange() throws IOException {
         String output = null; /* TODO */
-        
+
         assertEquals(
             "But as the riper should by time decease," +
             "His tender heir might bear his memory:",
@@ -91,23 +89,23 @@ public class ExercisesOrig {
     }
 
 // Exercise 6: Find the length of the longest line in the file.
-    
+
     @Test @Ignore
     public void lengthOfLongestLine() throws IOException {
         int longest = 0; /* TODO */
-        
+
         assertEquals(longest, 53);
     }
-    
+
 // Exercise 7: Collect all the words from the text file into a list.
 // Hint: use String.split(REGEXP) to split a string into words.
 // Splitting this way results in "words" that are the empty string,
 // which should be discarded. REGEXP is defined at the bottom of this file.
-    
+
     @Test @Ignore
     public void listOfAllWords() throws IOException {
         List<String> output = null; /* TODO */
-        
+
         assertEquals(
             Arrays.asList(
                 "From", "fairest", "creatures", "we", "desire", "increase",
@@ -127,13 +125,13 @@ public class ExercisesOrig {
                 "due", "by", "the", "grave", "and", "thee"),
             output);
     }
-    
+
 // Exercise 8: Create a list containing the words, lowercased, in alphabetical order.
-    
+
     @Test @Ignore
     public void sortedLowerCase() throws IOException {
         List<String> output = null; /* TODO */
-        
+
         assertEquals(
             Arrays.asList(
 		"a", "abundance", "and", "and", "and", "art", "as", "be",
@@ -154,14 +152,14 @@ public class ExercisesOrig {
 		"with", "within", "world", "world", "world"),
             output);
     }
-    
+
 // Exercise 9: Sort unique, lower-cased words by length, then alphabetically
 // within length, and place the result into an output list.
 
     @Test @Ignore
     public void sortedLowerCaseDistinctByLengthThenAlphabetically() throws IOException {
         List<String> output = null; /* TODO */
-        
+
         assertEquals(
             Arrays.asList(
                 "a", "s", "as", "be", "by", "in", "or", "st", "to", "we",
@@ -179,16 +177,16 @@ public class ExercisesOrig {
                 "substantial"),
             output);
     }
-    
+
 // Exercise 10: Categorize the words into a map, where the map's key is
 // the length of each word, and the value corresponding to a key is a
 // list of words of that length. Don't bother with uniqueness or lower-
 // casing the words.
-    
+
     @Test @Ignore
     public void mapLengthToWordList() throws IOException {
         Map<Integer, List<String>> map = null; /* TODO */
-        
+
         assertEquals(6, map.get(7).size());
         assertEquals(Arrays.asList("increase", "ornament"), map.get(8));
         assertEquals(Arrays.asList("creatures", "abundance"), map.get(9));
@@ -201,7 +199,7 @@ public class ExercisesOrig {
 // number of occurrences of each word. Don't worry about upper case and
 // lower case. Extra challenge: implement two solutions, one that uses
 // groupingBy() and the other that uses toMap().
-    
+
     @Test @Ignore
     public void wordFrequencies() throws IOException {
         Map<String, Long> map = null; /* TODO */
@@ -234,7 +232,7 @@ public class ExercisesOrig {
             map.get("t").get(3).toString());
         assertEquals("[beauty, bright]", map.get("b").get(6).toString());
     }
-    
+
 // ===== TEST INFRASTRUCTURE ==================================================
 
     static List<String> wordList = Arrays.asList(
@@ -249,8 +247,9 @@ public class ExercisesOrig {
 
     @Before
     public void setUpBufferedReader() throws IOException {
-        reader = Files.newBufferedReader(
-                Paths.get("SonnetI.txt"), StandardCharsets.UTF_8);
+        reader = new BufferedReader(new InputStreamReader(
+            getClass().getResourceAsStream("/SonnetI.txt"),
+            StandardCharsets.UTF_8));
     }
 
     @After

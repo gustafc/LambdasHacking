@@ -1,6 +1,5 @@
 package errorhandling;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -13,14 +12,12 @@ import static org.junit.Assert.*;
 
 public class TryTest {
 
-    @Ignore
     @Test
     public void testSuccessfulExecution() {
         Try<String> result = Try.executing(() -> "Great success!");
         assertEquals("Great success!", result.get());
     }
 
-    @Ignore
     @Test
     public void testFailingExecution() {
         NoSuchElementException failure = new NoSuchElementException("Big trouble!");
@@ -30,14 +27,12 @@ public class TryTest {
         assertSame(failure, result.getException());
     }
 
-    @Ignore
     @Test
     public void testMapSuccessful() {
         Try<String> success = Try.forSuccess("banana").map(String::toUpperCase);
         assertEquals("BANANA", success.get());
     }
 
-    @Ignore
     @Test
     public void testMapFailed() {
         NoSuchElementException exception = new NoSuchElementException();
@@ -45,7 +40,6 @@ public class TryTest {
         assertSame(exception, failure.getException());
     }
 
-    @Ignore
     @Test
     public void testFlatMapSuccessful() {
         Try<String> original = Try.forSuccess("banana");
@@ -53,7 +47,6 @@ public class TryTest {
         assertEquals("BANANA", success.get());
     }
 
-    @Ignore
     @Test
     public void testFlatMapFailed() {
         Try<String> original = Try.forSuccess("banana");
@@ -61,7 +54,6 @@ public class TryTest {
         assertEquals(NumberFormatException.class, failure.getException().getClass());
     }
 
-    @Ignore
     @Test
     public void testZipWith() {
         Try<String> ok1 = Try.forSuccess("1");
@@ -73,7 +65,6 @@ public class TryTest {
         assertSame(err1.getException(), err1.zipWith(err2, String::concat).getException());
     }
 
-    @Ignore
     @Test
     public void testSequenceSuccessful(){
         Try<List<String>> sequence = Try.sequence(Stream.of("a", "b", "c")
@@ -82,7 +73,6 @@ public class TryTest {
         assertEquals(Arrays.asList("a", "b", "c"), sequence.get());
     }
 
-    @Ignore
     @Test
     public void testSequenceFailed(){
         Try<List<Integer>> sequence = Try.sequence(Stream.of("1", "2", "three")

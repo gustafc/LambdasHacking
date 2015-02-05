@@ -21,7 +21,11 @@ public class Try<T> {
      * wrapped as a failure.
      */
     public static <T> Try<T> executing(ThrowingSupplier<? extends T> block) {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        try {
+            return Try.forSuccess(block.get());
+        } catch (Throwable throwable) {
+            return forFailure(throwable);
+        }
     }
 
     /**
@@ -29,7 +33,12 @@ public class Try<T> {
      * If {@code this} was successful, returns the current value mapped by the specified mapper.
      */
     public <U> Try<U> map(Function<? super T, ? extends U> mapper) {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        if (true) {
+            // map is basically just a special case of flatMap, so we can implement it quite easily in terms of flatMap:
+            return flatMap(mapper.andThen(Try::forSuccess));
+        }
+        // It's actually quite simple to write without flatMap, too:
+        return succeeded() ? forSuccess(mapper.apply(get())) : forFailure(getException());
     }
 
     /**
@@ -37,7 +46,9 @@ public class Try<T> {
      * If {@code this} was successful, returns the value mapped by the specified mapper.
      */
     public <U> Try<U> flatMap(Function<? super T, Try<? extends U>> mapper) {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        if (this.failed()) return (Try<U>) this; // Safe, because we don't have a value, only the exception
+        Try<U> mapped = (Try<U>) mapper.apply(get()); // Safe, because <U> and <? extends U> are equivalent for read-only fields
+        return mapped;
     }
 
     /**
@@ -46,7 +57,7 @@ public class Try<T> {
      * If {@code this} succeeded but {@code other} failed, return a failure equivalent to {@code other}.
      */
     public <U, V> Try<V> zipWith(Try<U> other, BiFunction<? super T, ? super U, ? extends V> zipper) {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        return flatMap(t -> other.map(u -> zipper.apply(t, u)));
     }
 
     /**
@@ -55,7 +66,12 @@ public class Try<T> {
      * to the first failed element in {@code tries}.
      */
     public static <U> Try<List<U>> sequence(List<Try<U>> tries) {
-        throw new UnsupportedOperationException("Not yet implemented!");
+        List<U> results = new ArrayList<>(tries.size());
+        for (Try<U> t : tries) {
+            if (t.failed()) return t.map(Collections::singletonList); // Shut up, type system!
+            results.add(t.get());
+        }
+        return Try.forSuccess(results);
     }
 
     // --- You should not need to edit the code below.

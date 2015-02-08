@@ -10,28 +10,23 @@ public class Reimplementation {
     }
 
     public static <T, U> Stream<U> map(Stream<T> stream, Function<? super T, ? extends U> mapper) {
-        // TODO: Rewrite this method without using stream.map
-        return stream.map(mapper);
+        return stream.flatMap(mapper.andThen(Stream::of));
     }
 
     public static <T> Stream<T> filter(Stream<T> stream, Predicate<? super T> condition) {
-        // TODO: Rewrite this method without using stream.filter
-        return stream.filter(condition);
+        return stream.flatMap(e -> condition.test(e) ? Stream.of(e) : Stream.empty());
     }
 
     public static <T> boolean allMatch(Stream<T> stream, Predicate<? super T> condition) {
-        // TODO: Rewrite this method without using stream.allMatch
-        return stream.allMatch(condition);
+        return !stream.filter(condition.negate()).findFirst().isPresent();
     }
 
     public static <T> boolean anyMatch(Stream<T> stream, Predicate<? super T> condition) {
-        // TODO: Rewrite this method without using stream.anyMatch
-        return stream.anyMatch(condition);
+        return stream.filter(condition).findFirst().isPresent();
     }
 
     public static <T, U> Stream<U> flatMap(Stream<T> stream, Function<? super T, Stream<U>> mapper) {
-        // TODO: Rewrite this method without using stream.flatMap
-        return stream.flatMap(mapper);
+        return stream.map(mapper).reduce(Stream.empty(), Stream::concat);
     }
 
 }

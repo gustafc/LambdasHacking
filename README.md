@@ -34,7 +34,22 @@ detta repo bör resultera i att Maven konstaterar `[INFO] BUILD SUCCESS`.
 Använd streams och lambdas för att implementera lösningar för testerna i
 `src/test/nighthacking/ExercisesTest.java` (lånat från [NightHacking][nh]).
 
-### Del 2 - funktionell felhantering
+### Del 2 - Återuppfinn några vanliga `Stream`-operationer
+
+Många metoder på [`Stream`][api_stream] är egentligen bara enklare varianter av
+andra metoder, som t.ex. `map` är en förenklad variant av `flatMap`. Exakt hur
+de här operationerna hänger ihop kan du utforska i klassen `Reimplementation`
+och dess test. Prova att skriva om metoderna i den klassen så att de inte
+använder sin motsvarighet i `Stream`, utan någon mer generell variant.
+
+Observera att det räknas som fusk att bygga en t.ex. en `java.util.List` som man
+mellanlagrar datat i - du vill bara arbeta med strömmar i den här uppgiften!
+
+**Bonusfråga:** Några operationer går inte att implementera helt optimalt bara
+med de metoder som finns på `Stream`. Vilka då? Varför? Kan du tänka dig någon
+operation man skulle kunna utöka `Stream` med som skulle kunna hjälpa?
+
+### Del 3 - funktionell felhantering
 
 Inom funktionell programmering är man inte helt förtjust i att kasta exceptions.
 
@@ -58,7 +73,7 @@ eventuella värdet.
 I `errorhandling.TryTest` finns ett gäng utkommenterade tester som beskriver ett
 sätt att bygga `Try` på. Titta igenom testerna och försök få dem att gå igenom.
 
-#### Del 2.b - mer generell felhantering (överkurs, valfri)
+#### Del 3.b - mer generell felhantering (överkurs, valfri)
 
 En variant på `Try<T>` är `Either<Left, Right>`, en representation av något som
 kan ha antagit ett av två värden, där den ena "sidan" (oftast left) motsvarar
@@ -90,10 +105,10 @@ och bara bearbetar högersidan. Exempelvis skulle vi kunna tänka så här:
 
 Prova att implementera hela eller delar av den här klassen.
 
-
 [mejsla]: http://www.mejsla.se/
 [junit]: http://junit.org/
 [maven]: http://maven.apache.org/
 [nh]: https://github.com/NightHacking/LambdasHacking
 [api_fn]: http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html
 [api_opt]: http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html
+[api_stream]:  http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html

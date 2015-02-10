@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
@@ -130,7 +131,7 @@ public class ExercisesTest {
 
     private Stream<String> wordsInFile() {
         return reader.lines()
-                .flatMap(s -> Stream.of(s.split(REGEXP)))
+                .flatMap(Pattern.compile(REGEXP)::splitAsStream)
                 .filter(s -> !s.isEmpty());
     }
 

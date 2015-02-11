@@ -18,6 +18,9 @@ detta repo bör resultera i att Maven konstaterar `[INFO] BUILD SUCCESS`.
 
 ## Att tänka på
 
+- Vi har gjort en [lathund][chsh] för lambda- och metodreferenssyntax, och några
+  vanliga strömoperationer som du kan vilja kolla på när du arbetar med
+  uppgifterna.
 - Du kan springa in i lite problem med Javas system för generics när du arbetar
   med denna uppgift. Så länge du vet att du gör rätt får du lösa dessa problem
   som du vill. "You must know when to break the rules!"
@@ -108,6 +111,7 @@ Prova att implementera hela eller delar av den här klassen.
 [mejsla]: http://www.mejsla.se/
 [junit]: http://junit.org/
 [maven]: http://maven.apache.org/
+[chsh]: ./CHEATSHEET.md
 [nh]: https://github.com/NightHacking/LambdasHacking
 [api_fn]: http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html
 [api_opt]: http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html

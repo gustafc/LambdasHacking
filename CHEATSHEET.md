@@ -24,10 +24,15 @@ Följande lambauttryck/metodreferenser är ekvivalenta:
 
 ### Strömmar
 
+Få ut en ström från en array:
+
+    String[] arr = {"foo", "bar", "baz"};
+    Stream<String> stream = Stream.of(arr);
+
 Få ut en ström från en collection:
 
     List<String> strings = ...;
-    Stream<String> stream = strings.stream();
+    Stream<String> stream = strings.stream();;
 
 Göra en ström till en lista:
 

@@ -93,31 +93,21 @@ public class TryTest {
 
     // -- Basic sanity checks below
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void testForSuccess() {
         Try<String> t = Try.forSuccess("Hello, try!");
         assertTrue(t.succeeded() && !t.failed());
         assertEquals("Hello, try!", t.get());
-        try {
-            t.getException();
-            fail("getException should fail for successful Try");
-        } catch (IllegalStateException e) {
-            // This is what want to happen
-        }
+        t.getException();
     }
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void testForFailure() {
         NoSuchElementException failure = new NoSuchElementException();
         Try<String> t = Try.forFailure(failure);
         assertTrue(t.failed() && !t.succeeded());
         assertSame(failure, t.getException());
-        try {
-            t.get();
-            fail("get should fail for failed Try");
-        } catch (IllegalStateException e) {
-            // This is what want to happen
-        }
+        t.get();
     }
 
 }

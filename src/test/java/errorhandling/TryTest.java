@@ -1,7 +1,9 @@
 package errorhandling;
 
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +14,9 @@ import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.*;
 
 public class TryTest {
+
+    @Rule
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Ignore
     @Test
@@ -93,20 +98,22 @@ public class TryTest {
 
     // -- Basic sanity checks below
 
-    @Test(expected=IllegalStateException.class)
+    @Test
     public void testForSuccess() {
         Try<String> t = Try.forSuccess("Hello, try!");
         assertTrue(t.succeeded() && !t.failed());
         assertEquals("Hello, try!", t.get());
+        expectedException.expect(IllegalStateException.class);
         t.getException();
     }
 
-    @Test(expected=IllegalStateException.class)
+    @Test
     public void testForFailure() {
         NoSuchElementException failure = new NoSuchElementException();
         Try<String> t = Try.forFailure(failure);
         assertTrue(t.failed() && !t.succeeded());
         assertSame(failure, t.getException());
+        expectedException.expect(IllegalStateException.class);
         t.get();
     }
 
